@@ -1,0 +1,5 @@
+<img [src]="postImg" (click)="imgSelected.emit(postImg)">
+<!-- will search for content inserted inside our content tags
+and will replace them by the content; it is optional 
+content can be passed from parent to child -->
+<ng-content></ng-content>
