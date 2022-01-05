@@ -1,3 +1,52 @@
+<!-- let's apply ngIf directive to ng-template element  
+  structural directive ngIf is wrapped in [] to be able to use
+  an expression as a value.
+-->
+<ng-template [ngIf]="blueClass">
+  <p>The button is blue</p>
+</ng-template>
+<!-- another shorter and equiv way 
+  internally it adds the <ng-template> and [] around ngIf 
+  and treat "blueClass" as an expression
+-->
+<p *ngIf="blueClass">it is really blue</p>
+
+<!-- attribute directives -->
+<button 
+  (click)="blueClass = !blueClass"
+  [ngClass]="{ blue: blueClass }"
+  [ngStyle]="{ 'font-size.px': fontSize }">
+  Change</button>
+<hr>
+<!-- <img [src]="imgURL"> -->
+<app-post [img]="imgURL" (imgSelected)="logImg($event)">
+  <p>Some caption</p>
+</app-post>
+
+<app-post *ngFor="let image of images; let i = index" [img]="image" 
+  (imgSelected)="logImg($event)">
+  <p>{{ i }} Some caption</p>
+</app-post>
+
+<!-- Event Binding -->
+<input (keyup)="changeImage($event)" [value]="imgURL">
+
+<p>Hello {{ name.toLocaleUpperCase() }} !</p>
+<p>Hello (using pipe) {{ name | titlecase }} !</p>
+<p>Hello {{ "my name is "+getName() }} !</p>
+<p>Hello {{ "my name age is "+(54+3) }} !</p>
+<p>{{ currentDate | date: 'MMMM d'}}</p>
+<p>{{ currentDate | date: 'short'}}</p>
+<p>{{ cost | currency }}</p>
+<p>{{ cost | currency:'JPY' }}</p>
+<!-- 1.0-0: 
+  1. means at least 1 and if >1, format ignored
+  0 min & 0 max 
+-->
+<p>{{ temperature| number:'1.0-2' }}</p>
+<p>{{ pizza | json }}</p>
+<pre>{{ pizza | json }}</pre>
+
 
 <!-- 
   {{ expression }} 
@@ -20,14 +69,9 @@
   and the result is assigned to the src attribute.
   The component class and templates are tight together!
  -->
-<!-- <img [src]="imgURL"> -->
-<app-post [img]="imgURL" (imgSelected)="logImg($event)">
-  <p>Some caption</p>
-</app-post>
-
-<!-- Event Binding -->
-<input (keyup)="changeImage($event)" [value]="imgURL">
-
-<p>Hello {{ name.toLocaleUpperCase() }} !</p>
-<p>Hello {{ "my name is "+getName() }} !</p>
-<p>Hello {{ "my name age is "+(54+3) }} !</p>
+<!-- 
+  normally it recomendaed to use functions but in case of very simple expression like here, it is ok 
+  ngClass directive
+  ngClass is used to add "blue" class <button>, if blueClass is true
+    and remove "blue" class if false
+-->
